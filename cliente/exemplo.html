@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Painel de exemplo · Lanchonete Exemplo · Estúdio Aproxima</title>
+<meta name="description" content="Painel de demonstração com dados fictícios.">
+<meta name="theme-color" content="#140A2E">
+<meta name="robots" content="noindex">
+<meta name="format-detection" content="telephone=no">
+<meta property="og:site_name" content="Estúdio Aproxima">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Painel de exemplo · Lanchonete Exemplo · Estúdio Aproxima">
+<meta property="og:description" content="Painel de demonstração com dados fictícios.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='12' fill='%236D28D9'/%3E%3Cg fill='none' stroke='%23fff' stroke-width='3.4' stroke-linecap='round'%3E%3Cpath d='M32.6 11.1A15 15 0 0 1 32.6 36.9'/%3E%3Cpath d='M15.4 11.1A15 15 0 0 0 15.4 36.9'/%3E%3Cpath d='M29.5 17.3A8.5 8.5 0 0 1 29.5 30.7'/%3E%3Cpath d='M18.5 17.3A8.5 8.5 0 0 0 18.5 30.7'/%3E%3C/g%3E%3Ccircle cx='24' cy='24' r='3.2' fill='%232EE6A0'/%3E%3C/svg%3E">
+<!-- Inter: usada só em aparelhos que não têm a fonte do sistema da Apple -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/estilo.css">
+</head>
+<body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+<!-- Fundo: degradê em movimento (desenhado pelo site.js) -->
+<div class="bg" aria-hidden="true"><canvas width="160" height="100"></canvas></div>
+
+<div class="page">
+  <!-- Cabeçalho do painel: logo, nome do negócio e Sair -->
+  <header class="nav">
+    <div class="nav-bar">
+      <a class="wm" href="../index.html" aria-label="Estúdio Aproxima, voltar ao site">
+        <span class="a" aria-hidden="true">A</span><span aria-hidden="true">pr</span><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M35.47 7.62A20 20 0 0 1 35.47 40.38"/><path d="M12.53 7.62A20 20 0 0 0 12.53 40.38"/><path d="M31.07 15.57A11 11 0 0 1 31.07 32.43"/><path d="M16.93 15.57A11 11 0 0 0 16.93 32.43"/><circle cx="24" cy="24" r="4"/></svg><span aria-hidden="true">xima</span>
+      </a>
+      <div class="nav-side">
+        <span class="nav-biz"><span id="nome-negocio"></span><span class="tag">Exemplo</span></span>
+        <a href="entrar.html" id="sair">Sair</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="container"><p class="status erro dash-erro" id="aviso-erro" role="alert" hidden></p></div>
+
+  <main class="dash" id="conteudo" hidden>
+    <div class="container wide">
+      <p class="example-note" role="note">
+        <span class="tag">Exemplo</span>
+        <span><b>Painel de demonstração.</b> A Lanchonete Exemplo é fictícia e todos os números são inventados, só para mostrar como o painel funciona.</span>
+      </p>
+
+      <div class="dash-head">
+        <div>
+          <h1>Relatório do seu site</h1>
+          <p class="dash-sub" id="periodo-texto">Últimos 7 dias</p>
+        </div>
+        <!-- Filtro de período: vale para todos os números da página -->
+        <div class="seg" role="group" aria-label="Período">
+          <button type="button" data-periodo="7" aria-pressed="true">Semana</button>
+          <button type="button" data-periodo="30" aria-pressed="false">Mês</button>
+        </div>
+      </div>
+
+      <!-- Só no painel de exemplo: o que a pessoa fez na página Demonstração -->
+      <section class="card live" id="ao-vivo" aria-labelledby="t-live" hidden>
+        <div>
+          <h2 id="t-live">Sua demonstração, neste aparelho</h2>
+          <p>O que você fez na página Demonstração chega aqui, como chegaria para o dono do negócio.</p>
+        </div>
+        <ul>
+          <li><b id="live-nfc">0</b><span id="live-nfc-txt">aproximações</span></li>
+          <li><b id="live-itens">0</b><span id="live-itens-txt">itens escolhidos</span></li>
+          <li><b id="live-pedidos">0</b><span id="live-pedidos-txt">pedidos no WhatsApp</span></li>
+        </ul>
+        <a class="more" href="../demonstracao.html">Fazer a demonstração</a>
+      </section>
+
+      <!-- Números principais -->
+      <div class="kpis" id="kpis">
+        <article class="card kpi kpi-hero">
+          <h2 class="kpi-label" id="kpi-visitas-label">Visitas na semana</h2>
+          <p class="kpi-value" id="kpi-visitas">–</p>
+          <p class="kpi-delta" id="kpi-visitas-delta"></p>
+          <svg class="spark" id="spark-visitas" aria-hidden="true"></svg>
+        </article>
+        <article class="card kpi">
+          <h2 class="kpi-label">Acessos pela plaquinha (NFC/QR Code)</h2>
+          <p class="kpi-value" id="kpi-nfc">–</p>
+          <div class="meter" role="img" id="meter-nfc"><span id="meter-nfc-fill"></span></div>
+          <p class="kpi-note" id="kpi-nfc-note"></p>
+        </article>
+        <article class="card kpi">
+          <h2 class="kpi-label">Cliques no WhatsApp</h2>
+          <p class="kpi-value" id="kpi-whats">–</p>
+          <p class="kpi-delta" id="kpi-whats-delta"></p>
+          <p class="kpi-note" id="kpi-whats-note"></p>
+        </article>
+      </div>
+
+      <!-- Visitas por dia -->
+      <section class="card chart-card" aria-labelledby="t-visitas">
+        <div class="chart-head">
+          <h2 id="t-visitas">Visitas por dia</h2>
+          <p>Passe o mouse ou toque no gráfico para ver o número de cada dia.</p>
+        </div>
+        <div class="chart" id="chart-visitas"></div>
+        <details class="table-view">
+          <summary>Ver em tabela</summary>
+          <table><thead><tr><th scope="col">Dia</th><th scope="col">Visitas</th><th scope="col">NFC/QR</th><th scope="col">WhatsApp</th></tr></thead><tbody id="tabela-visitas"></tbody></table>
+        </details>
+      </section>
+
+      <div class="dash-grid">
+        <!-- Itens mais vistos -->
+        <section class="card chart-card" aria-labelledby="t-itens">
+          <div class="chart-head">
+            <h2 id="t-itens">Itens mais vistos do cardápio</h2>
+            <p>Quantas vezes cada item foi aberto no período.</p>
+          </div>
+          <ol class="rank" id="chart-itens"></ol>
+        </section>
+
+        <!-- Horários de maior movimento -->
+        <section class="card chart-card" aria-labelledby="t-horas">
+          <div class="chart-head">
+            <h2 id="t-horas">Horários de maior movimento</h2>
+            <p>Visitas por hora do dia. Em verde, os 3 horários mais fortes.</p>
+          </div>
+          <div class="cols" id="chart-horas"></div>
+          <details class="table-view">
+            <summary>Ver em tabela</summary>
+            <table><thead><tr><th scope="col">Horário</th><th scope="col">Visitas</th></tr></thead><tbody id="tabela-horas"></tbody></table>
+          </details>
+        </section>
+      </div>
+
+      <p class="dash-foot">Dados fictícios de demonstração · Estúdio Aproxima</p>
+    </div>
+  </main>
+
+  <div class="tip" id="tip" role="tooltip" hidden></div>
+</div>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/painel-dados-exemplo.js"></script>
+<script src="../assets/painel.js"></script>
+<script src="../assets/exemplo-ao-vivo.js"></script>
+</body>
+</html>

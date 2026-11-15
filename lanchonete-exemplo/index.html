@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lanchonete Exemplo · site de demonstração</title>
+<meta name="description" content="Site de demonstração criado pelo Estúdio Aproxima. A Lanchonete Exemplo é uma empresa fictícia.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#2B1810">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23E5432B'/%3E%3Cpath d='M14 31c0-9 8-15 18-15s18 6 18 15z' fill='%23FFC233'/%3E%3Crect x='13' y='34' width='38' height='6' rx='3' fill='%232B1810'/%3E%3Cpath d='M14 43h36v2a5 5 0 0 1-5 5H19a5 5 0 0 1-5-5z' fill='%23FFC233'/%3E%3C/svg%3E">
+<!-- Fonte dos títulos: dá a personalidade da lanchonete -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<!-- Desenhos usados no site (feitos em código, sem depender de fotos) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-burger" viewBox="0 0 64 64">
+    <path d="M8 29c0-12 10.5-19 24-19s24 7 24 19z" fill="#F2A03D"/>
+    <g fill="#FFE9BF"><ellipse cx="22" cy="18" rx="2.2" ry="1.2" transform="rotate(-20 22 18)"/><ellipse cx="32" cy="15" rx="2.2" ry="1.2"/><ellipse cx="42" cy="18.5" rx="2.2" ry="1.2" transform="rotate(20 42 18.5)"/><ellipse cx="27" cy="23" rx="2.2" ry="1.2"/><ellipse cx="38" cy="23.5" rx="2.2" ry="1.2"/></g>
+    <rect x="8" y="33" width="48" height="6" rx="3" fill="#E5432B"/>
+    <path d="M6 29h52v3c-3.2 0-3.2 3.5-6.5 3.5S48.3 32 45 32s-3.2 3.5-6.5 3.5S35.3 32 32 32s-3.2 3.5-6.5 3.5S22.3 32 19 32s-3.2 3.5-6.5 3.5S9.2 32 6 32z" fill="#4CAF50"/>
+    <rect x="7" y="40" width="50" height="9" rx="4.5" fill="#5B2E1A"/>
+    <path d="M6 38.5h52v2.5l-8 6-7-6H6z" fill="#FFC233"/>
+    <path d="M8 51h48v3a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6z" fill="#F2A03D"/>
+  </symbol>
+  <symbol id="i-fritas" viewBox="0 0 64 64">
+    <g fill="#FFC233"><rect x="19" y="11" width="5.5" height="27" rx="2" transform="rotate(-9 22 24)"/><rect x="26.5" y="6" width="5.5" height="31" rx="2"/><rect x="33.5" y="8" width="5.5" height="29" rx="2" transform="rotate(6 36 22)"/><rect x="40.5" y="13" width="5.5" height="25" rx="2" transform="rotate(13 43 25)"/></g>
+    <path d="M15 30h34l-4 28H19z" fill="#E5432B"/>
+    <path d="M23 43h18" stroke="#FFF3DF" stroke-width="3.5" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="i-aneis" viewBox="0 0 64 64">
+    <circle cx="26" cy="37" r="13" fill="none" stroke="#F2A03D" stroke-width="8"/>
+    <circle cx="41" cy="25" r="11" fill="none" stroke="#DB8426" stroke-width="7"/>
+  </symbol>
+  <symbol id="i-refri" viewBox="0 0 64 64">
+    <path d="M36 19V8l9-3" fill="none" stroke="#2B1810" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M20 22h24l-3 36H23z" fill="#E5432B"/>
+    <rect x="17" y="17" width="30" height="6" rx="3" fill="#FFF3DF"/>
+    <path d="M24 36h16" stroke="#FFF3DF" stroke-width="3.5" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="i-suco" viewBox="0 0 64 64">
+    <path d="M20 14h24l-3 44H23z" fill="#FFE9BF"/>
+    <path d="M21 26h22l-2.2 32H23.2z" fill="#FF9F1C"/>
+    <circle cx="45" cy="15" r="7.5" fill="#FF9F1C" stroke="#FFF3DF" stroke-width="2.5"/>
+    <path d="M30 14V6" stroke="#2E7D4F" stroke-width="3" stroke-linecap="round"/>
+  </symbol>
+</svg>
+
+<div class="pagina">
+  <!-- Aviso sempre visível: este site é um exemplo -->
+  <p class="aviso">Site de exemplo · empresa fictícia</p>
+
+  <header class="topo">
+    <a class="marca" href="#inicio" data-rolar="inicio">
+      <span class="marca-icone"><svg aria-hidden="true"><use href="#i-burger"/></svg></span>
+      <span>Lanchonete<br>Exemplo</span>
+    </a>
+    <span class="mesa">Mesa <b id="mesa">04</b></span>
+  </header>
+
+  <main>
+    <section class="capa" id="inicio">
+      <p class="selo">Feito na hora</p>
+      <h1>Bateu a fome?</h1>
+      <p class="capa-texto">Lanche de chapa, batata crocante e suco gelado. Escolha aqui e peça pelo WhatsApp, sem sair da mesa.</p>
+      <a class="botao" href="#cardapio" data-rolar="cardapio">Ver o cardápio</a>
+      <svg class="capa-arte" aria-hidden="true"><use href="#i-burger"/></svg>
+    </section>
+
+    <section class="destaque" aria-labelledby="t-destaque">
+      <div class="destaque-arte"><svg aria-hidden="true"><use href="#i-burger"/></svg></div>
+      <div>
+        <p class="etiqueta">O queridinho da casa</p>
+        <h2 id="t-destaque">X-Bacon</h2>
+        <p>Bacon crocante e cheddar derretendo.</p>
+        <div class="destaque-linha">
+          <span class="preco">R$ 31,90</span>
+          <button class="botao botao-pequeno" type="button" id="add-destaque">Adicionar</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="cardapio" id="cardapio" aria-labelledby="t-cardapio">
+      <h2 class="titulo" id="t-cardapio">Cardápio</h2>
+      <p class="apoio">Toque no + para montar o seu pedido.</p>
+      <div class="abas" id="abas" role="group" aria-label="Categorias"></div>
+      <ul class="itens" id="itens"></ul>
+    </section>
+
+    <section class="info" aria-labelledby="t-info">
+      <h2 class="titulo" id="t-info">Passa aqui</h2>
+      <div class="info-cartoes">
+        <div class="info-cartao">
+          <b>Horário</b>
+          <span>Terça a domingo<br>das 18h às 23h</span>
+        </div>
+        <div class="info-cartao">
+          <b>Endereço</b>
+          <span>Rua de Exemplo, 123<br>Centro <small>(fictício)</small></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <p>Este é um site de demonstração.<br>A Lanchonete Exemplo não existe de verdade.</p>
+    <a href="../index.html" target="_top">Site criado pelo Estúdio Aproxima</a>
+  </footer>
+
+  <!-- Sacola: aparece quando há itens escolhidos -->
+  <div class="sacola" id="sacola" hidden>
+    <span id="sacola-resumo">1 item · R$ 0,00</span>
+    <button type="button" id="pedir">Pedir no WhatsApp</button>
+  </div>
+
+  <!-- Como o pedido chegaria no WhatsApp (nada é enviado de verdade) -->
+  <div class="conversa" id="conversa" inert>
+    <div class="conversa-topo">
+      <button type="button" id="conversa-voltar" aria-label="Voltar ao cardápio">‹</button>
+      <span>Lanchonete Exemplo</span>
+    </div>
+    <p class="balao" id="balao"></p>
+    <p class="conversa-nota">Demonstração: nenhuma mensagem foi enviada. No site de um cliente real, o WhatsApp abre com este texto pronto.</p>
+    <button class="botao conversa-fechar" type="button" id="conversa-fechar">Voltar ao cardápio</button>
+  </div>
+</div>
+
+<script src="site.js"></script>
+</body>
+</html>
