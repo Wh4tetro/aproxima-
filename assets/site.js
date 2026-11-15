@@ -88,7 +88,12 @@ const MENSAGEM = "Olá! Vi o site do Estúdio Aproxima e quero saber mais.";
   if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
-        if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+        if (en.isIntersecting) {
+          const alvo = en.target;
+          alvo.classList.add("in");
+          io.unobserve(alvo);
+          setTimeout(function () { alvo.style.transitionDelay = ""; }, 1200);
+        }
       });
     }, { rootMargin: "0px 0px -8% 0px" });
     blocos.forEach(function (el, i) {
@@ -138,19 +143,31 @@ const MENSAGEM = "Olá! Vi o site do Estúdio Aproxima e quero saber mais.";
       });
     };
     tela.desenharFundo = desenharFundo; // usado nos testes de legibilidade
-    const rolagemAtual = function () {
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      return max > 0 ? window.scrollY / max : 0;
+    // Quanto a página pode rolar. Medir isso é caro, então só medimos
+    // quando o tamanho da página muda, e não a cada desenho.
+    let rolagemMaxima = 1;
+    const medir = function () {
+      rolagemMaxima = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
     };
+    medir();
+    window.addEventListener("load", medir);
+    window.addEventListener("resize", medir);
+    if ("ResizeObserver" in window) new ResizeObserver(medir).observe(document.body);
+    const rolagemAtual = function () { return Math.min(1, window.scrollY / rolagemMaxima); };
+
+    // O relógio do computador (e não o tempo desde que a página abriu) marca a
+    // posição das luzes: assim, ao trocar de página, o fundo continua de onde estava.
+    const relogio = function () { return Date.now() / 1000; };
+
     if (parado) {
-      desenharFundo(0, 0);
+      desenharFundo(relogio(), 0);
     } else {
-      let ultimo = -1000;
-      const quadro = function (ms) {
-        if (ms - ultimo > 40) { // ~25 desenhos por segundo já bastam para um movimento lento
-          ultimo = ms;
-          desenharFundo(ms / 1000, rolagemAtual());
-        }
+      // "suave" persegue a rolagem real aos poucos: o fundo acompanha a página
+      // com um leve atraso, como algo dentro d'água, em vez de dar pulinhos.
+      let suave = rolagemAtual();
+      const quadro = function () {
+        suave += (rolagemAtual() - suave) * 0.07;
+        desenharFundo(relogio(), suave); // a cada quadro da tela, para o movimento ficar contínuo
         requestAnimationFrame(quadro);
       };
       requestAnimationFrame(quadro);

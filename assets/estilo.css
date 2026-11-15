@@ -77,7 +77,7 @@ button,input{font:inherit;color:inherit;letter-spacing:inherit}
    Fica parado atrás de tudo enquanto a página rola por cima (profundidade).
    O movimento é desenhado pelo site.js; o degradê abaixo é a versão parada,
    usada se a animação não rodar. */
-.bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:
+.bg{position:fixed;top:0;left:0;width:100%;height:100vh;height:100lvh;z-index:0;overflow:hidden;pointer-events:none;background:
   radial-gradient(60% 55% at 12% 8%,rgba(124,58,237,.52),transparent 70%),
   radial-gradient(50% 50% at 92% 4%,rgba(109,40,217,.44),transparent 70%),
   radial-gradient(55% 50% at 88% 92%,rgba(25,201,138,.22),transparent 70%),
@@ -87,7 +87,8 @@ button,input{font:inherit;color:inherit;letter-spacing:inherit}
 /* granulado fino por cima: dá textura e tira o aspecto "liso de computador" */
 .bg::after{content:"";position:absolute;inset:0;opacity:.1;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E")}
 
-.page{position:relative;z-index:1;flex:1;display:flex;flex-direction:column;overflow-x:clip}
+/* a barra do topo fica presa à janela; este espaço evita que ela cubra o começo da página */
+.page{position:relative;z-index:1;flex:1;display:flex;flex-direction:column;overflow-x:clip;padding-top:var(--nav-h)}
 main{flex:1}
 
 /* ---------- Tipografia (escala medida no site da Apple) ---------- */
@@ -128,7 +129,7 @@ main{flex:1}
 .foot-wm{font-size:clamp(52px,9vw,96px);margin-bottom:clamp(28px,4vw,44px)}
 
 /* ---------- Cabeçalho fixo em vidro ---------- */
-.nav{position:sticky;top:0;z-index:50;color:#f5f5f7;background:rgba(20,10,46,.5);-webkit-backdrop-filter:saturate(180%) blur(24px);backdrop-filter:saturate(180%) blur(24px);--accent:var(--green);--accent-hover:#63f2bb;--on-accent:var(--night)}
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;color:#f5f5f7;background:rgba(20,10,46,.5);-webkit-backdrop-filter:saturate(180%) blur(24px);backdrop-filter:saturate(180%) blur(24px);--accent:var(--green);--accent-hover:#63f2bb;--on-accent:var(--night)}
 .nav::after{content:"";position:absolute;inset:auto 0 0 0;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.04),rgba(255,255,255,.3),rgba(255,255,255,.04));pointer-events:none}
 .nav-bar{display:flex;align-items:center;gap:4px;height:var(--nav-h);max-width:1068px;margin:0 auto;padding:0 6px 0 18px}
 .nav .wm{font-size:21px;margin-right:auto}
@@ -510,3 +511,27 @@ a.more:hover,a:hover > .more{text-decoration:underline;text-underline-offset:3px
 
 /* Nota de rodapé alinhada à largura do bloco acima */
 .fine.container{max-width:none}
+
+/* ============================================================
+   FLUIDEZ
+   ============================================================ */
+/* Troca de página com passagem suave, em vez de um corte seco.
+   Funciona nos navegadores recentes; nos outros, a troca é a normal. */
+@view-transition{navigation:auto}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.45s;animation-timing-function:cubic-bezier(.28,.11,.32,1)}
+
+/* Botões cedem um pouco ao toque e voltam, como algo macio */
+.btn{transition:background .25s,color .25s,border-color .25s,box-shadow .25s,transform .4s cubic-bezier(.2,1.5,.4,1)}
+.btn:active{transform:scale(.96)}
+/* Blocos que são links: sobem de leve com o mouse e cedem ao toque */
+/* ("translate" e "scale" são separados do "transform" usado na entrada dos blocos, para um não anular o outro) */
+a.tile,.js a.tile.reveal{transition:opacity .9s var(--ease),transform .9s var(--ease),translate .6s var(--ease),scale .4s var(--ease)}
+@media (hover:hover){a.tile:hover{translate:0 -6px}}
+a.tile:active{scale:.985}
+
+@media (prefers-reduced-motion:reduce){
+  @view-transition{navigation:none}
+  .btn,a.tile,.js a.tile.reveal{transition:none}
+  .btn:active{transform:none}
+  a.tile:hover,a.tile:active{translate:none;scale:none}
+}
