@@ -69,6 +69,11 @@ revoke insert, update, delete on public.eventos  from anon, authenticated;
 revoke select on public.negocios from anon;
 revoke select on public.eventos  from anon;
 
+-- Quem está logado pode LER as duas tabelas. As regras acima (RLS)
+-- continuam valendo: cada cliente só recebe as linhas do próprio negócio.
+grant select on public.negocios to authenticated;
+grant select on public.eventos  to authenticated;
+
 
 -- ---------- 4. Resumo para o painel ----------
 -- Junta os eventos em números prontos para o painel (por dia, por item,
